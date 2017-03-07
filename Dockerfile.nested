@@ -1,0 +1,23 @@
+FROM alpine
+
+RUN apk update
+RUN apk add make go git gcc libc-dev && rm -rf /var/cache/apk/*
+
+ENV GOPATH /go
+ENV PLUGINDIR /go/src/github.com/mavenugo/test-docker-netplugin
+
+RUN mkdir -p /run/docker/plugins
+
+COPY . ${PLUGINDIR}
+WORKDIR ${PLUGINDIR}
+
+# add the run/docker/plugins directory structure to /go
+ADD run /go/run
+
+RUN go install --ldflags '-extldflags "-static"'
+
+BUILD /go
+FROM scratch
+ADD run /run
+ADD bin /bin
+CMD [/bin/test-docker-netplugin]
