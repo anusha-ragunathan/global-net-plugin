@@ -1,0 +1,7 @@
+FROM scratch
+
+ADD go /go
+
+ADD run /run
+
+CMD ["/go/bin/test-docker-netplugin"]
