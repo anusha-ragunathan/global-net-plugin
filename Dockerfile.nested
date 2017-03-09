@@ -4,17 +4,18 @@ RUN apk update
 RUN apk add make go git gcc libc-dev && rm -rf /var/cache/apk/*
 
 ENV GOPATH /go
-ENV PLUGINDIR /go/src/github.com/mavenugo/test-docker-netplugin
+ENV PLUGINDIR /go/src/github.com/anusha-ragunathan/global-net-plugin
 
-RUN mkdir -p /run/docker/plugins
+RUN mkdir -p /go/run/docker/plugins
 
 COPY . ${PLUGINDIR}
 WORKDIR ${PLUGINDIR}
-
-# add the run/docker/plugins directory structure to /go
-ADD run /go/run
-
 RUN go install --ldflags '-extldflags "-static"'
+
+WORKDIR /go
+
+RUN rm -rf /go/pkg
+RUN rm -rf /go/src
 
 BUILD /go
 FROM scratch
