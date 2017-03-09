@@ -1,7 +1,7 @@
 {
     "description": "Test network plugin for Docker",
     "documentation": "https://docs.docker.com/engine/extend/plugins/",
-    "entrypoint": ["/go/bin/test-docker-netplugin"],
+    "entrypoint": ["/bin/test-docker-netplugin"],
     "network": {
            "type": "host"
            },
