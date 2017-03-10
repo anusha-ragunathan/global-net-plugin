@@ -1,0 +1,18 @@
+{
+    "description": "Test network plugin for Docker",
+    "documentation": "https://docs.docker.com/engine/extend/plugins/",
+    "entrypoint": ["/bin/global-net-plugin"],
+    "network": {
+           "type": "host"
+           },
+   "ipchost": true,
+    "interface" : {
+           "types": ["docker.networkdriver/1.0"],
+           "socket": "plugin.sock"
+    },
+    "linux": {
+        "capabilities": [
+            "CAP_SYS_ADMIN"
+        ]
+    }
+}
