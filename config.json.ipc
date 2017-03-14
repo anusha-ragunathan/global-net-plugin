@@ -1,4 +1,5 @@
 {
+    "Version" : "1.1.0",
     "description": "Test network plugin for Docker",
     "documentation": "https://docs.docker.com/engine/extend/plugins/",
     "entrypoint": ["/bin/global-net-plugin"],
