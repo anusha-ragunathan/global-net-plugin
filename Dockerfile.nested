@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine AS build-env
 
 RUN apk update
 RUN apk add make go git gcc libc-dev && rm -rf /var/cache/apk/*
@@ -17,8 +17,8 @@ WORKDIR /go
 RUN rm -rf /go/pkg
 RUN rm -rf /go/src
 
-BUILD /go
 FROM scratch
+COPY --from=build-env /go /
 ADD run /run
 ADD bin /bin
-CMD [/bin/test-docker-netplugin]
+CMD [/bin/global-net-plugin]
